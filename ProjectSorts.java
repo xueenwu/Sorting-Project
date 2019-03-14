@@ -34,11 +34,12 @@ public class ProjectSorts
 	{
 		int[] values = new int[size];
 		for (int i = 0; i < values.length; i++)
-		{
 			values[i] = (int) (Math.random() * 100);
-		}	
+		printArray(values);
+		System.out.println("values is sorted: " + isSorted(values) + "\n");
 		mergeSort(values, 0, values.length);
-		System.out.println(Arrays.toString(values));
+		printArray(values);
+		System.out.println("values is sorted: " + isSorted(values) + "\n");
 	}
 	
 	public static void mergeSort(int[] array, int firstIndex, int lastIndex)
@@ -87,4 +88,28 @@ public class ProjectSorts
 				array[i] = tempArray[i];
 			}
 	}
+
+	public static void printArray(int[] array)
+	{
+		System.out.println("Values: ");
+		for (int i = 0; i < array.length; i++)
+		{
+			if (i % 10 == 9)
+				System.out.println(String.format("%02d", array[i]));
+			else
+    			System.out.print(String.format("%02d", array[i]) + " ");
+		}
+		if (array.length % 10 != 9)
+			System.out.println();
+	}
+
+	public static boolean isSorted(int[] array)
+    // Determine whether the array values are sorted
+    {
+    		boolean sorted = true;
+    		for (int i = 0; i < array.length - 1; i++)
+    			if (array[i] > array[i + 1])
+    				sorted = false;
+    		return sorted;
+    }
 }
