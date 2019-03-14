@@ -2,22 +2,15 @@ import java.util.Arrays;
 
 public class ProjectSorts 
 {
-	public static final int SIZE = 50;
 	
 	public static void main(String[] args)
 	{
-		int[] values = new int[50];
-		for (int i = 0; i < values.length; i++)
-		{
-			values[i] = (int) (Math.random() * 100);
-		}	
-		mergeSort(values, 0, values.length);
-		System.out.println(Arrays.toString(values));
+		testMergeSort(50);
 	}
 	
-	public static void testMergeSort()
+	public static void testMergeSort(int size)
 	{
-		int[] values = new int[SIZE];
+		int[] values = new int[size];
 		for (int i = 0; i < values.length; i++)
 		{
 			values[i] = (int) (Math.random() * 100);
