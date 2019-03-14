@@ -5,7 +5,19 @@ public class ProjectSorts
 	
 	public static void main(String[] args)
 	{
-		testMergeSort(50);
+		System.out.println(mergeTime(10000));
+	}
+	
+	public static double mergeTime(int size)
+	{
+		int[] values = new int[size];
+		for (int i = 0; i < values.length; i++)
+			values[i] = (int) (Math.random() * 100);
+		long startingTime = System.nanoTime();
+		mergeSort(values, 0 , values.length);
+		long endingTime = System.nanoTime();
+		double timeTaken = (endingTime - startingTime) / Math.pow(10, 9);
+		return timeTaken;
 	}
 	
 	public static void testBubbleSort(int size)
@@ -20,7 +32,7 @@ public class ProjectSorts
 		printArray(values);
 		System.out.println("values is sorted: " + isSorted(values) + "\n");
 	}
-	
+
 	public static void bubbleSort(int[] array)
 	{
 		for (int i = 0; i < array.length - 1; i++)
