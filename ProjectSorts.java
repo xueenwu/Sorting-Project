@@ -8,6 +8,28 @@ public class ProjectSorts
 		testMergeSort(50);
 	}
 	
+	public static void bubbleSort(int[] array)
+	{
+		for (int i = 0; i < array.length - 1; i++)
+		{
+			bubbleUp(array);
+		}
+	}
+	
+	private static void bubbleUp(int[] array)
+	{
+		for (int i = array.length - 1; i > 0; i--)
+			if (array[i] < array[i - 1])
+				swap(array, i, i - 1);
+	}
+	
+	private static void swap(int[] array, int i, int j)
+	{
+		int temp = array[i];
+		array[i] = array[j];
+		array[j] = temp;
+	}
+	
 	public static void testMergeSort(int size)
 	{
 		int[] values = new int[size];
