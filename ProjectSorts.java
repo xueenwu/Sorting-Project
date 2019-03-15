@@ -2,37 +2,65 @@ import java.util.Arrays;
 
 public class ProjectSorts 
 {
+	public static int[] SIZES = {5, 10, 25, 50, 100, 250, 500, 1000, 2500};
+	public static int TRIALS = 50;
 	
 	public static void main(String[] args)
 	{
-		System.out.println(mergeTime(10000));
+		double[] trials = bubbleTester(SIZES, TRIALS);
+		for (int i = 0; i < SIZES.length; i++)
+		{
+			System.out.println(SIZES[i] + ": " + trials[i]);
+		}
+		System.out.println();
+		trials = bubbleTester(SIZES, TRIALS);
+		for (int i = 0; i < SIZES.length; i++)
+		{
+			System.out.println(SIZES[i] + ": " + trials[i]);
+		}
 	}
 	
-	public static double mergeTime(int size)
+	public static double[] bubbleTester(int[] sizes, int trials)
+	{
+		double[] times = new double[sizes.length];
+		for (int i = 0; i < sizes.length; i++)
+			times[i] = averageBubble(SIZES[i], trials);
+		return times;
+	}
+	
+	public static double averageBubble(int size, int trials)
+	{
+		//The first two times are always anomalously high 
+		// - I don't know why, but if you call bubble sort
+		// a couple of times first that doesn't occur.
+		bubbleTime(size);
+		bubbleTime(size);
+		double total = 0;
+		double time;
+		for (int i = 0; i < trials; i++)
+		{
+			time = bubbleTime(size) * 1000;
+//			System.out.println(i + 1 + ": " + time);
+			total += time;
+		}
+//		System.out.println("total: " + total);
+		double average = total / trials;
+//		System.out.println("average: " + average);
+		return average;
+	}
+	
+	private static double bubbleTime(int size)
 	{
 		int[] values = new int[size];
 		for (int i = 0; i < values.length; i++)
 			values[i] = (int) (Math.random() * 100);
 		long startingTime = System.nanoTime();
-		mergeSort(values, 0 , values.length);
+		bubbleSort(values);
 		long endingTime = System.nanoTime();
 		double timeTaken = (endingTime - startingTime) / Math.pow(10, 9);
 		return timeTaken;
 	}
 	
-	public static void testBubbleSort(int size)
-	{
-		System.out.println("Bubble sort");
-		int[] values = new int[size];
-		for (int i = 0; i < values.length; i++)
-			values[i] = (int) (Math.random() * 100);
-		printArray(values);
-		System.out.println("values is sorted: " + isSorted(values) + "\n");
-		bubbleSort(values);
-		printArray(values);
-		System.out.println("values is sorted: " + isSorted(values) + "\n");
-	}
-
 	public static void bubbleSort(int[] array)
 	{
 		for (int i = 0; i < array.length - 1; i++)
@@ -53,19 +81,6 @@ public class ProjectSorts
 		int temp = array[i];
 		array[i] = array[j];
 		array[j] = temp;
-	}
-	
-	public static void testMergeSort(int size)
-	{
-		System.out.println("Merge sort");
-		int[] values = new int[size];
-		for (int i = 0; i < values.length; i++)
-			values[i] = (int) (Math.random() * 100);
-		printArray(values);
-		System.out.println("values is sorted: " + isSorted(values) + "\n");
-		mergeSort(values, 0, values.length);
-		printArray(values);
-		System.out.println("values is sorted: " + isSorted(values) + "\n");
 	}
 	
 	public static void mergeSort(int[] array, int firstIndex, int lastIndex)
