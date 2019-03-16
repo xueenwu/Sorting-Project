@@ -1,30 +1,61 @@
-import java.util.Arrays;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 
 public class ProjectSorts 
 {
-	public static int[] SIZES = {5, 10, 25, 50, 100, 250, 500, 1000, 2500};
+	public static int[] SIZES = {
+//			5, 6, 7, 8, 9, 10, 20, 30, 40, 50, 
+//			60, 70, 80, 90, 100, 200, 300, 400, 500, 600, 700, 
+//			800, 900, 1000, 2000, 3000, 4000, 5000, 6000, 
+//			7000, 8000, 9000, 10000, 10001, 10005, 10025, 10050,
+//			10060, 10070,
+//			10075,
+//			10100, 10200, 10250,
+//			10500, 11000
+			10040, 10050, 10060, 10061, 10062, 10063, 
+			10064, 10065, 10066, 10067, 10068, 10069, 
+			10070, 10080, 10090, 10100
+			};
 	public static int TRIALS = 50;
 	
 	public static void main(String[] args)
 	{
-		double[] trials = bubbleTester(SIZES, TRIALS);
+		double[][] trials = mergeTester(SIZES, TRIALS);
 		for (int i = 0; i < SIZES.length; i++)
 		{
-			System.out.println(SIZES[i] + ": " + trials[i]);
+//			try
+//			{
+				System.out.println((int) trials[i][0] + ", " + trials[i][1]);
+//			}
+//			catch (FileNotFoundException ex)
+//			{
+//				
+//			}
 		}
-		System.out.println();
-		trials = bubbleTester(SIZES, TRIALS);
-		for (int i = 0; i < SIZES.length; i++)
-		{
-			System.out.println(SIZES[i] + ": " + trials[i]);
-		}
+//		System.out.println();
+//		trials = mergeTester(SIZES, TRIALS);
+//		for (int i = 0; i < SIZES.length; i++)
+//		{
+//			System.out.println((int) trials[i][0] + ": " + trials[i][1]);
+//		}
+		
 	}
 	
-	public static double[] bubbleTester(int[] sizes, int trials)
+	public static void printOutput(String str) throws FileNotFoundException
 	{
-		double[] times = new double[sizes.length];
+		PrintWriter out = new PrintWriter("//Users//dtn4//Documents//projectsorts.txt");
+		out.print(str);
+		out.close();
+	}
+	
+	public static double[][] bubbleTester(int[] sizes, int trials)
+	{
+		double[][] times = new double[sizes.length][2];
 		for (int i = 0; i < sizes.length; i++)
-			times[i] = averageBubble(SIZES[i], trials);
+		{
+			times[i][0] = sizes[i];
+			times[i][1] = averageBubble(SIZES[i], trials);
+		}
 		return times;
 	}
 	
@@ -56,6 +87,42 @@ public class ProjectSorts
 			values[i] = (int) (Math.random() * 100);
 		long startingTime = System.nanoTime();
 		bubbleSort(values);
+		long endingTime = System.nanoTime();
+		double timeTaken = (endingTime - startingTime) / Math.pow(10, 9);
+		return timeTaken;
+	}
+	
+	public static double[][] mergeTester(int[] sizes, int trials)
+	{
+		double[][] times = new double[sizes.length][2];
+		for (int i = 0; i < sizes.length; i++)
+		{
+			times[i][0] = sizes[i];
+			times[i][1] = averageMerge(SIZES[i], trials);
+		}
+		return times;
+	}
+	
+	public static double averageMerge(int size, int trials)
+	{
+		double total = 0;
+		double time;
+		for (int i = 0; i < trials; i++)
+		{
+			time = mergeTime(size) * 1000;
+			total += time;
+		}
+		double average = total / trials;
+		return average;
+	}
+	
+	private static double mergeTime(int size)
+	{
+		int[] values = new int[size];
+		for (int i = 0; i < values.length; i++)
+			values[i] = (int) (Math.random() * 100);
+		long startingTime = System.nanoTime();
+		mergeSort(values, 0, values.length);
 		long endingTime = System.nanoTime();
 		double timeTaken = (endingTime - startingTime) / Math.pow(10, 9);
 		return timeTaken;
