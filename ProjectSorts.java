@@ -196,6 +196,52 @@ public class ProjectSorts
 				array[i] = tempArray[i];
 			}
 	}
+	
+	/*
+   * Flips the given array from index 0 and ending at index end, inclusive
+   * end must be less than SIZE
+   */
+   public static void flip(int[] array, int end)
+   {
+      int[] temp = new int[end+1];
+      for (int i = 0; i <= end; i++)
+      {
+          temp[i] = array[end-i];
+      }
+      for (int i = 0; i <= end; i++)
+      {
+          array[i] = temp[i];
+      }
+   }
+
+   /*
+   * Finds the maximum value in an array between 2 indices, inclusive.
+   */
+   public static int maxIndex(int[] array, int min, int max)
+   {
+      int maxIndex = min;
+      for (int i = min+1; i <= max; i++)
+      {
+          if(array[i] > array[maxIndex])
+          {
+              maxIndex = i;
+          }
+      }
+      return maxIndex;
+   }
+
+   public static void pancakeSort(int[] array)
+   {
+      int currentSize = array.length;
+      int max = 0;
+      while (currentSize > 1)
+      {
+          max = maxIndex(values, 0, currentSize-1);
+          flip(array, max);
+          flip(array, currentSize-1);
+          currentSize--;
+      }
+   }
 
 	public static void printArray(int[] array)
 	{
