@@ -128,6 +128,55 @@ public class ProjectSorts
 		return timeTaken;
 	}
 	
+	public static void pancakeSort(int[] array)
+    {
+      int currentSize = array.length;
+      int max = 0;
+      while (currentSize > 1)
+      {
+          max = maxIndex(values, 0, currentSize-1);
+          flip(array, max);
+          flip(array, currentSize-1);
+          currentSize--;
+      }
+    }
+    
+    public static double[][] pancakeTester(int[] sizes, int trials)
+    {
+        double[][] times = new double[sizes.length][2];
+        for (int i = 0; i < sizes.length; i++)
+        {
+            times[i][0] = sizes[i];
+            times[i][1] = averagePancake(sizes[i], trials);
+        }
+        return times;
+    }
+    
+    public static double averagePancake(int size, int trials)
+    {
+        double total = 0;
+        double time;
+        for (int i = 0; i < trials; i++)
+        {
+            time = pancakeTime(size) * 1000;
+            total += time;
+        }
+        double average = total / trials;
+        return average;
+    }
+    
+    private static double pancakeTime(int size)
+    {
+        int[] values = new int[size];
+        for (int i = 0; i < values.length; i++)
+            values[i] = (int) (Math.random() * 100);
+        long startingTime = System.nanoTime();
+        pancakeSort(values);
+        long endingTime = System.nanoTime();
+        double timeTaken = (endingTime - startingTime) / Math.pow(10, 9);
+        return timeTaken;
+    }
+	
 	public static void bubbleSort(int[] array)
 	{
 		for (int i = 0; i < array.length - 1; i++)
