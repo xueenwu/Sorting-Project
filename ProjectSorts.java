@@ -1,6 +1,3 @@
-import java.io.FileNotFoundException;
-import java.io.PrintWriter;
-
 public class ProjectSorts 
 {
 	public static int[] SIZES = {
@@ -16,7 +13,7 @@ public class ProjectSorts
 			10064, 10065, 10066, 10067, 10068, 10069, 
 			10070, 10080, 10090, 10100
 			};
-	public static int TRIALS = 50;
+	public static int TRIALS = 30;
 	
 	public static void main(String[] args)
 	{
@@ -39,13 +36,6 @@ public class ProjectSorts
 //			System.out.println((int) trials[i][0] + ": " + trials[i][1]);
 //		}
 		
-	}
-	
-	public static void printOutput(String str) throws FileNotFoundException
-	{
-		PrintWriter out = new PrintWriter("//Users//dtn4//Documents//projectsorts.txt");
-		out.print(str);
-		out.close();
 	}
 	
 	public static double[][] bubbleTester(int[] sizes, int trials)
@@ -134,7 +124,7 @@ public class ProjectSorts
       int max = 0;
       while (currentSize > 1)
       {
-          max = maxIndex(values, 0, currentSize-1);
+          max = maxIndex(array, 0, currentSize-1);
           flip(array, max);
           flip(array, currentSize-1);
           currentSize--;
@@ -277,19 +267,6 @@ public class ProjectSorts
           }
       }
       return maxIndex;
-   }
-
-   public static void pancakeSort(int[] array)
-   {
-      int currentSize = array.length;
-      int max = 0;
-      while (currentSize > 1)
-      {
-          max = maxIndex(values, 0, currentSize-1);
-          flip(array, max);
-          flip(array, currentSize-1);
-          currentSize--;
-      }
    }
 
 	public static void printArray(int[] array)
